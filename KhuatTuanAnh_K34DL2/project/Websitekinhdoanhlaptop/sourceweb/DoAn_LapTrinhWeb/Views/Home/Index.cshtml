@@ -1,0 +1,469 @@
+﻿@using DoAn_LapTrinhWeb.Models
+@model IEnumerable<DoAn_LapTrinhWeb.Models.Product>
+@{
+    ViewBag.Title = "SHOP- Laptop, phụ kiện giá rẻ";
+    Layout = "~/Views/Shared/Main_Layout.cshtml";
+    string defaultImg = "/Content/Images/no-image.jpg";
+    var sanphamhot = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.sanphamhot;
+    var laptopgaming = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.laptopgaming;
+    var hoctapvanphong = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.hoctapvanphong;
+    var phukien = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.phukien;
+    var caocapsangtrong = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.caocapsangtrong;
+    var dohoakithuat = (List<DoAn_LapTrinhWeb.Models.Product>)ViewBag.dohoakithuat;
+}
+
+<div class="it_service">
+    <div id="fadeshow1" class="container-fluid">
+        <div id="fadeshow1" class="position-fixed float-left start-10 top-30">
+            <a class="" href="@Url.Action("Bannerdetail", "discount")" target="_blank"><img class="rounded-2 shadow-lg" src="https://res.cloudinary.com/van-nam/image/upload/v1626974402/SourcesWeb/image/banner/banner-vertical_uhkqs5.jpg" width="150" height="350" /></a>
+        </div>
+        <div class="position-fixed float-right end-10 top-30 ">
+            <a href="@Url.Action("Bannerdetail", "discount")" target="_blank"><img class="rounded-2 shadow-lg" src="https://res.cloudinary.com/van-nam/image/upload/v1626974402/SourcesWeb/image/banner/banner-vertical_uhkqs5.jpg" width="150" height="350" /></a>
+        </div>
+    </div>
+    <!-- start slide quảng cáo-->
+    <div class="container">
+        <div class="row ">
+            <div class="mt-20px col-lg-3 rounded-3">@Html.Action("Genrelistpartial", "Products")</div>
+            <div class=" col-lg-9">
+                <div class="carousel slide mt-20px " id="main-carousel" data-ride="carousel">
+                    <div class="carousel-inner  rounded-3 shadow-lg">
+                        <div class="carousel-item active">
+                            <p href="" target="_blank">
+                                <img class="d-block img-fluid" src="~/Content/Images/banner-horizonal-1.jpg" alt="">
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p href="" target="_blank">
+                                <img class="d-block img-fluid" src="~/Content/Images/banner-horizonal-2.jpg" alt="">
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p href="" target="_blank">
+                                <img class="d-block img-fluid" src="~/Content/Images/banner-horizonal-3.jpg" alt="">
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p href="" target="_blank">
+                                <img src="~/Content/Images/banner-horizonal-4.jpg" alt="" class="d-block img-fluid">
+                            </p>
+                        </div>
+                    </div><!-- /.carousel-inner -->
+
+                    <a href="#main-carousel" class="carousel-control-prev" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="sr-only" aria-hidden="true">Prev</span>
+                    </a>
+                    <a href="#main-carousel" class="carousel-control-next" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="sr-only" aria-hidden="true">Next</span>
+                    </a>
+                </div><!-- /.carousel -->
+            </div>
+        </div>
+    </div><!-- /.container -->
+    <!-- end slide quảng cáo -->
+    <!-- start slide quảng cáo-->
+  
+
+    <!-- /.container -->
+    <!-- end slide quảng cáo -->
+    <!-- start sản phẩm hot -->
+    <div class="section padding_layout_1 ">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Sản Phẩm Hot</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                @foreach (var item in sanphamhot)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)" alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0 ₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- end sản phẩm hot -->
+    <!-- start học tập - văn phòng -->
+    <div class="section padding_layout_1">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Học Tập - Văn Phòng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in hoctapvanphong)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)"
+                                         alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                                                                                                      aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <!-- end học tập - văn phòng -->
+    <!---->
+    <!---->
+    <!-- start Đồ Hoạ - Kĩ Thuật -->
+    <div class="section padding_layout_1">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Đồ Hoạ - Kĩ Thuật</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in dohoakithuat)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)"
+                                         alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                                                                                                      aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <!-- end Đồ hoạ -kĩ thuật -->
+    <!-- start Laptop gaming -->
+    <div class="section padding_layout_1 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Laptop Gaming</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in laptopgaming)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)"
+                                         alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                                                                                                      aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <!-- end laptop gaming -->
+    <!-- start cao cấp sang trọng -->
+    <div class="section padding_layout_1">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Cao Cấp - Sang Trọng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in caocapsangtrong)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)"
+                                         alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!--  -->
+            </div>
+        </div>
+    </div>
+    <!-- end cao cấp - sang trọng -->
+    <!-- start phụ kiện -->
+    <div class="section padding_layout_1">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="main_heading ">
+                            <p class="h4 text-uppercase">Phụ Kiện</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in phukien)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
+                        <div class="product_list">
+                            <a href="~/@SlugGenerator.SlugGenerator.GenerateSlug(item.product_name)-@item.product_id">
+                                <div class="product_img">
+                                    <img class="img-responsive"
+                                         src="@(item.image != null? item.image : defaultImg)"
+                                         alt="">
+                                </div>
+                                <div class="product_detail_btm">
+                                    <div class="center">
+                                        <p>
+                                            @item.product_name
+
+                                        </p>
+                                    </div>
+                                    <div class="starratin">
+                                        <div class="center">
+                                            <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                             aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+                                                                                                                                                                      aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product_price">
+                                        <p>
+                                            @if (item.Discount != null)
+                                            {
+                                                if (item.Discount.discount_star < DateTime.Now && item.Discount.discount_end > DateTime.Now)
+                                                {
+                                                    <span class="old_price">@item.price.ToString("#,###₫")</span> <span class="new_price">@((item.price - item.Discount.discount_price).ToString("#,0₫"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="new_price">@item.price.ToString("#,###₫")</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!--  -->
+            </div>
+        </div>
+    </div>
+  
+    
+</div>
